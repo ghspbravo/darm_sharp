@@ -13,20 +13,30 @@ namespace DARM_sharp
 {
     public partial class Main : Form
     {
-        public Main()
+        public string getFilterValue()
         {
-            InitializeComponent();
+            if (partTitleAndYearFilter.Checked) return "partTitleAndYear";
+            if (partTitleFilter.Checked) return "partTitle";
+            if (allWordsInTitleFilter.Checked) return "allWords";
+            if (OneWordInTitleFilter.Checked) return "oneWord";
 
-            var conn = new NpgsqlConnection("Server=db.mirvoda.com; Port=5454; User Id=developer; Password=rtfP@ssw0rd; Database=darm");
-
-            LoadResultsToView("SELECT * FROM movies LIMIT 100", conn);
+            return "";
         }
 
-        public void LoadResultsToView(string query, NpgsqlConnection conn)
+        public void LoadDbResultsToView(string query, string searchParam = "")
         {
+            searchResults.Rows.Clear();
+            var conn = new NpgsqlConnection("Server=db.mirvoda.com; Port=5454; User Id=developer; Password=rtfP@ssw0rd; Database=darm");
             conn.Open();
             var cmd = new NpgsqlCommand(query, conn);
 
+            if (searchParam != "")
+            {
+                cmd.Parameters.Add("@string", NpgsqlTypes.NpgsqlDbType.Text);
+                cmd.Parameters["@string"].Value = searchParam;
+                cmd.Parameters.AddWithValue(searchParam);
+            }
+                 
             var reader = cmd.ExecuteReader();
 
             while (reader.Read())
@@ -46,6 +56,54 @@ namespace DARM_sharp
                 }
             }
             reader.Close();
+
+        }
+
+        public Main()
+        {
+            InitializeComponent();
+
+            LoadDbResultsToView("SELECT * FROM movies LIMIT 100");
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            var query = searchInput.Text;
+            var queryIsString = 0;
+            int.TryParse(query, out queryIsString);
+
+            var oneOfWordsSearchInName =
+                "SELECT * FROM movies WHERE name ILIKE '% ' || @string || ' %' LIMIT 10";
+            var partSearchInName = "SELECT * FROM movies WHERE name ILIKE '%' || @string || '%' LIMIT 10";
+            var allWordsSearchInName = "SELECT * FROM movies WHERE name = @string LIMIT 10";
+            var partSearchOrYearInName = queryIsString == 0
+                ? "SELECT * FROM movies WHERE name ILIKE '%' || @string || '%' LIMIT 10"
+                : "SELECT * FROM movies WHERE year = " + query + " LIMIT 10";
+
+            switch(getFilterValue())
+            {
+                case "partTitleAndYear":
+                    LoadDbResultsToView(partSearchOrYearInName, query);
+                    break;
+                case "partTitle":
+                    LoadDbResultsToView(partSearchInName, query);
+                    break;
+                case "allWords":
+                    LoadDbResultsToView(allWordsSearchInName, query);
+                    break;
+                case "oneWord":
+                    LoadDbResultsToView(oneOfWordsSearchInName, query);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            LoadDbResultsToView("SELECT * FROM movies LIMIT 100");
+            searchInput.Text = "";
         }
     }
 }

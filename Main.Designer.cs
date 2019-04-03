@@ -48,6 +48,7 @@
             this.partTitleFilter = new System.Windows.Forms.RadioButton();
             this.allWordsInTitleFilter = new System.Windows.Forms.RadioButton();
             this.OneWordInTitleFilter = new System.Windows.Forms.RadioButton();
+            this.resetButton = new System.Windows.Forms.Button();
             this.header.SuspendLayout();
             this.leftSideBar.SuspendLayout();
             this.content.SuspendLayout();
@@ -81,6 +82,7 @@
             // 
             // leftSideBar
             // 
+            this.leftSideBar.Controls.Add(this.resetButton);
             this.leftSideBar.Controls.Add(this.filtersForm);
             this.leftSideBar.Dock = System.Windows.Forms.DockStyle.Left;
             this.leftSideBar.Location = new System.Drawing.Point(0, 100);
@@ -160,6 +162,7 @@
             this.searchButton.TabIndex = 1;
             this.searchButton.Text = "Поиск";
             this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // searchResults
             // 
@@ -217,7 +220,7 @@
             this.filtersForm.Location = new System.Drawing.Point(12, 24);
             this.filtersForm.Name = "filtersForm";
             this.filtersForm.Padding = new System.Windows.Forms.Padding(10);
-            this.filtersForm.Size = new System.Drawing.Size(124, 557);
+            this.filtersForm.Size = new System.Drawing.Size(124, 275);
             this.filtersForm.TabIndex = 0;
             this.filtersForm.TabStop = false;
             this.filtersForm.Text = "Filters";
@@ -267,6 +270,17 @@
             this.OneWordInTitleFilter.Text = "one word in title";
             this.OneWordInTitleFilter.UseVisualStyleBackColor = true;
             // 
+            // resetButton
+            // 
+            this.resetButton.BackColor = System.Drawing.SystemColors.Info;
+            this.resetButton.Location = new System.Drawing.Point(25, 323);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(98, 34);
+            this.resetButton.TabIndex = 1;
+            this.resetButton.Text = "Reset";
+            this.resetButton.UseVisualStyleBackColor = false;
+            this.resetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -315,6 +329,7 @@
         private System.Windows.Forms.RadioButton allWordsInTitleFilter;
         private System.Windows.Forms.RadioButton partTitleFilter;
         private System.Windows.Forms.RadioButton partTitleAndYearFilter;
+        private System.Windows.Forms.Button resetButton;
     }
 }
 
