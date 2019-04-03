@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DARM_sharp", "DARM_sharp.csproj", "{DE79D412-F262-446A-A6BE-778EAD942BEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE79D412-F262-446A-A6BE-778EAD942BEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE79D412-F262-446A-A6BE-778EAD942BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE79D412-F262-446A-A6BE-778EAD942BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE79D412-F262-446A-A6BE-778EAD942BEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12BEF4D3-F4BE-48C9-B57B-ACB6931CB67A}
+	EndGlobalSection
+EndGlobal
