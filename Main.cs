@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,14 @@ namespace DARM_sharp
         public Main()
         {
             InitializeComponent();
+
+            using (var conn =
+                new NpgsqlConnection(
+                    "Server=db.mirvoda.com; Port=5454; User Id=developer; Password=rtfP@ssw0rd; Database=darm"))
+            {
+                conn.Open();
+            }
+
         }
     }
 }
